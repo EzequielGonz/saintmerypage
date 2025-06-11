@@ -6,6 +6,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { MobileMenu } from "@/components/mobile-menu"
+import { ShoppingBag } from "lucide-react"
+import { useCart } from "@/lib/cart-context"
 
 const navItems = [
   { href: "#inicio", label: "Inicio" },
@@ -20,6 +22,7 @@ const navItems = [
 export function Navbar() {
   const [currentSection, setCurrentSection] = useState("")
   const [scrolled, setScrolled] = useState(false)
+  const { getTotalItems } = useCart()
 
   // Handle smooth scrolling for anchor links
   useEffect(() => {
@@ -80,49 +83,56 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-shadow duration-200",
+        "sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 transition-shadow duration-200",
         scrolled ? "shadow-md" : "",
       )}
     >
-      <div className="container flex h-20 items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center">
-          <Link href="/">
+      <div className="container flex h-16 items-center">
+        <div className="mr-4 flex">
+          <Link href="/" className="mr-6 flex items-center space-x-2">
             <Image
               src="https://i.ibb.co/jvz0rVS0/hojitaverde.png"
               alt="Saintmery Logo"
-              width={400}
-              height={300}
-              className="h-20 w-auto transition-transform duration-300 group-hover:scale-105"
+              width={150}
+              height={50}
+              className="h-12 w-auto"
             />
           </Link>
         </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-6">
-          {navItems.slice(0, -1).map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-green-600",
-                currentSection === item.href.replace("#", "") ? "text-green-600" : "text-foreground",
-              )}
-            >
-              {item.label}
+        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+          <nav className="flex items-center space-x-6">
+            <Link href="#inicio" className="text-sm font-medium transition-colors hover:text-green-600">
+              Inicio
             </Link>
-          ))}
-        </nav>
-
-        {/* Shop Button (Desktop) */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link href="/shop">
-            <Button className="bg-green-600 hover:bg-green-700">Tienda Online</Button>
-          </Link>
+            <Link href="#nosotros" className="text-sm font-medium transition-colors hover:text-green-600">
+              Nosotros
+            </Link>
+            <Link href="#productos" className="text-sm font-medium transition-colors hover:text-green-600">
+              Productos
+            </Link>
+            <Link href="#testimonios" className="text-sm font-medium transition-colors hover:text-green-600">
+              Testimonios
+            </Link>
+            <Link href="#contacto" className="text-sm font-medium transition-colors hover:text-green-600">
+              Contacto
+            </Link>
+          </nav>
+          <div className="flex items-center space-x-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              onClick={() => document.querySelector('.cart-sidebar')?.classList.toggle('translate-x-full')}
+            >
+              <ShoppingBag className="h-5 w-5" />
+              {getTotalItems() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                  {getTotalItems()}
+                </span>
+              )}
+            </Button>
+          </div>
         </div>
-
-        {/* Mobile Menu */}
-        <MobileMenu items={navItems} currentSection={currentSection} />
       </div>
     </header>
   )

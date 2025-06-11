@@ -1,12 +1,14 @@
-import type React from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
 import "@/app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { CartProvider } from "@/lib/cart-context"
 
-export const metadata = {
-  title: "Saintmery - Dietética en Mar del Plata",
-  description:
-    "Productos naturales y saludables con entrega a domicilio en Mar del Plata y Balcarce. Venta minorista y mayorista.",
-    generator: 'v0.dev'
+const inter = Inter({ subsets: ["latin"] })
+
+export const metadata: Metadata = {
+  title: "Saintmery - Dietética Natural",
+  description: "Tu dietética de confianza. Productos naturales y saludables con entrega a domicilio en Mar del Plata y Balcarce.",
 }
 
 export default function RootLayout({
@@ -16,10 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+      <body className={inter.className}>
+        <CartProvider>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </CartProvider>
       </body>
     </html>
   )

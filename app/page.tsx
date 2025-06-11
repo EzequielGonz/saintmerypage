@@ -135,9 +135,11 @@ export default function LandingPage() {
                         <span className="text-sm line-through text-green-400">{offer.originalPrice}</span>
                       )}
                     </div>
-                    <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 text-base shadow-md">
-                      Agregar al carrito
-                    </Button>
+                    <Link href="/shop">
+                      <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                        Ver en tienda
+                      </Button>
+                    </Link>
                   </CardContent>
                 </Card>
               ))}
@@ -240,16 +242,7 @@ export default function LandingPage() {
                     <div className="mx-auto w-fit p-3 rounded-full bg-green-200">{category.icon}</div>
                     <h3 className="text-xl font-bold text-green-800">{category.title}</h3>
                     <p className="text-green-600">{category.description}</p>
-                    <Link
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        window.open(
-                          `https://wa.me/542235256172?text=Hola%2C%20me%20interesan%20los%20productos%20de%20la%20categor%C3%ADa%20${encodeURIComponent(category.title)}.`,
-                          "_blank",
-                        )
-                      }}
-                    >
+                    <Link href="/shop">
                       <Button variant="link" className="text-green-600">
                         Ver productos <ChevronRight className="h-4 w-4 ml-1" />
                       </Button>
@@ -323,18 +316,14 @@ export default function LandingPage() {
                     ))}
                   </div>
 
-                  <Button
-                    className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                    onClick={() =>
-                      window.open(
-                        "https://wa.me/542235256172?text=Hola%2C%20me%20interesa%20la%20venta%20minorista.%20¿Podr%C3%ADan%20contarme%20m%C3%A1s%20sobre%20sus%20productos%20para%20el%20hogar?",
-                        "_blank",
-                      )
-                    }
-                  >
-                    <ShoppingBag className="h-5 w-5 mr-2" />
-                    Comprar para mi hogar
-                  </Button>
+                  <Link href="/shop">
+                    <Button
+                      className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    >
+                      <ShoppingBag className="h-5 w-5 mr-2" />
+                      Comprar para mi hogar
+                    </Button>
+                  </Link>
                 </div>
               </div>
 
@@ -345,33 +334,29 @@ export default function LandingPage() {
                   <div className="flex items-center gap-4 mb-6">
                     <div className="relative">
                       <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl flex items-center justify-center shadow-lg">
-                        <div className="grid grid-cols-2 gap-1">
-                          <div className="w-3 h-3 bg-white rounded-sm"></div>
-                          <div className="w-3 h-3 bg-white rounded-sm"></div>
-                          <div className="w-3 h-3 bg-white rounded-sm"></div>
-                          <div className="w-3 h-3 bg-white rounded-sm"></div>
-                        </div>
+                        <ShoppingBag className="h-8 w-8 text-white" />
                       </div>
                       <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">%</span>
+                        <Heart className="h-3 w-3 text-white" />
                       </div>
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-amber-700">Venta Mayorista</h3>
-                      <p className="text-amber-600 font-medium">Para tu negocio</p>
+                      <p className="text-amber-600 font-medium">Para negocios y emprendimientos</p>
                     </div>
                   </div>
 
                   <p className="text-muted-foreground mb-6 text-lg">
-                    Ideal para revendedores, restaurantes y comercios. Precios especiales y servicio profesional.
+                    Ideal para negocios, restaurantes y emprendedores. Productos en grandes cantidades con precios
+                    especiales.
                   </p>
 
                   <div className="space-y-4 mb-8">
                     {[
-                      { icon: "💰", title: "Precios Preferenciales", desc: "Descuentos por volumen de compra" },
-                      { icon: "📦", title: "Envíos Programados", desc: "Entregas regulares según tu cronograma" },
-                      { icon: "📊", title: "Gestión de Stock", desc: "Te ayudamos a planificar tu inventario" },
-                      { icon: "🤝", title: "Soporte Comercial", desc: "Asesoramiento para hacer crecer tu negocio" },
+                      { icon: "🏢", title: "Precios Mayoristas", desc: "Descuentos especiales por volumen" },
+                      { icon: "📦", title: "Envíos a Todo el País", desc: "Logística confiable y segura" },
+                      { icon: "🤝", title: "Atención Personalizada", desc: "Asesoramiento para tu negocio" },
+                      { icon: "💼", title: "Condiciones Flexibles", desc: "Adaptadas a tus necesidades" },
                     ].map((item, i) => (
                       <div
                         key={i}
@@ -390,445 +375,106 @@ export default function LandingPage() {
                     className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                     onClick={() =>
                       window.open(
-                        "https://wa.me/542235256172?text=Hola%2C%20me%20interesa%20la%20venta%20mayorista.%20Tengo%20un%20negocio%20y%20me%20gustar%C3%ADa%20conocer%20sus%20precios%20y%20condiciones.",
+                        "https://wa.me/542235256172?text=Hola%2C%20me%20interesa%20la%20venta%20mayorista.%20¿Podr%C3%ADan%20contarme%20m%C3%A1s%20sobre%20sus%20condiciones%20para%20negocios?",
                         "_blank",
                       )
                     }
                   >
-                    <div className="grid grid-cols-2 gap-1 mr-2">
-                      <div className="w-2 h-2 bg-white rounded-sm"></div>
-                      <div className="w-2 h-2 bg-white rounded-sm"></div>
-                      <div className="w-2 h-2 bg-white rounded-sm"></div>
-                      <div className="w-2 h-2 bg-white rounded-sm"></div>
-                    </div>
-                    Consultar precios mayoristas
+                    <ShoppingBag className="h-5 w-5 mr-2" />
+                    Consultar por mayorista
                   </Button>
                 </div>
               </div>
             </div>
           </div>
         </section>
-
-        {/* Our Products Section */}
-        <section id="nuestros-productos" className="py-16 md:py-24 bg-gray-50">
-          <div className="container">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Nuestros Productos</h2>
-              <p className="text-lg text-muted-foreground">
-                Descubrí nuestra selección de productos destacados, elegidos por su calidad y beneficios para la salud.
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                {
-                  name: "Almendras Nonparei",
-                  price: "$6.050",
-                  category: "Frutos Secos",
-                  description:
-                    "Las almendras Nonpareil son una variedad premium reconocida por su forma alargada, piel delgada y color claro. Estas características las hacen ideales para consumir como snack o utilizar en repostería y cocina saludable.",
-                  image:
-                    "https://acdn-us.mitiendanube.com/stores/001/267/442/products/almendras11-d63816cb35fd27062a16894259546606-640-0.jpeg",
-                },
-                {
-                  name: "Semillas Amapola",
-                  price: "$8.450",
-                  category: "Semillas",
-                  description:
-                    "Las semillas de amapola son pequeñas semillas oleaginosas de color azul oscuro o negro, con un sabor suave y ligeramente a nuez.",
-                  image: "https://www.oestepizzaparty.com.ar/wp-content/uploads/2024/10/AMAPOLA.webp",
-                },
-                {
-                  name: "Granola Clasica",
-                  price: "$2.100",
-                  category: "Granolas",
-                  description: "Contiene: mani,pasas,avena,copos naturales y hebras.",
-                  image: "https://ibdsoluciones.com/wp-content/uploads/2022/11/2PTCG053.png",
-                },
-                {
-                  name: "Mix Frutas Secas Clasico",
-                  price: "$4.350",
-                  category: "Mix",
-                  description: "Contiene: mani,pasas,nueces y almendras.",
-                  image:
-                    "https://acdn-us.mitiendanube.com/stores/002/625/145/products/mix-premium-ml-21-be9b3ccc7dd2923c5f16802566568890-1024-1024.jpg",
-                },
-                {
-                  name: "Soja Texturizado",
-                  price: "$1.020",
-                  category: "Harinas",
-                  description:
-                    "La soja texturizada (también conocida como proteína de soja texturizada o carne de soja) es un alimento vegetal rico en proteínas que se obtiene de la harina de soja desgrasada y deshidratada.",
-                  image:
-                    "https://www.eco-basics.com/wp-content/uploads/2019/07/soja-texturizada-ecobasics_525886576.jpg",
-                },
-              ].map((product, i) => (
-                <Card key={i} className="overflow-hidden transition-all hover:shadow-lg">
-                  <div className="aspect-square relative">
-                    <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-cover" />
-                  </div>
-                  <CardContent className="p-4">
-                    <div className="mb-2">
-                      <span className="text-xs font-medium text-green-600">{product.category}</span>
-                    </div>
-                    <h3 className="font-bold">{product.name}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2 mt-1 mb-2">{product.description}</p>
-                    <div className="flex justify-between items-center mt-3">
-                      <span className="font-bold text-lg">{product.price}</span>
-                      <Button
-                        size="sm"
-                        className="bg-amber-700 hover:bg-amber-800"
-                        onClick={() =>
-                          window.open(
-                            `https://wa.me/542235256172?text=Hola%2C%20me%20interesa%20el%20producto:%20${encodeURIComponent(product.name)}.%20¿Podr%C3%ADan%20darme%20m%C3%A1s%20informaci%C3%B3n?`,
-                            "_blank",
-                          )
-                        }
-                      >
-                        <ShoppingBag className="h-4 w-4 mr-1" /> Comprar
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <Link href="/shop">
-                <Button className="bg-green-600 hover:bg-green-700">
-                  Ver todos los productos <ChevronRight className="h-4 w-4 ml-1" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* ¿Por qué elegirnos? Section */}
-        <section className="py-16 md:py-24 bg-green-50">
-          <div className="container">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-green-800">¿Por qué elegirnos?</h2>
-              <p className="text-lg text-green-600">
-                Descubrí las razones por las que somos tu mejor opción en productos naturales y saludables.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                {
-                  title: "Calidad Premium",
-                  description: "Ofrecemos productos de la más alta calidad, seleccionados cuidadosamente para ti.",
-                  icon: <Star className="h-10 w-10 text-green-600" />,
-                },
-                {
-                  title: "Atención Personalizada",
-                  description: "Te brindamos un servicio personalizado, adaptado a tus necesidades.",
-                  icon: <Heart className="h-10 w-10 text-green-600" />,
-                },
-                {
-                  title: "Entrega Rápida",
-                  description: "Entregamos tus productos a tiempo, donde y cuando los necesites.",
-                  icon: <Clock className="h-10 w-10 text-green-600" />,
-                },
-                {
-                  title: "Precios Accesibles",
-                  description: "Encontrá productos de calidad a precios que se ajustan a tu bolsillo.",
-                  icon: <ShoppingBag className="h-10 w-10 text-green-600" />,
-                },
-              ].map((reason, i) => (
-                <Card key={i} className="transition-all hover:shadow-lg bg-green-100">
-                  <CardContent className="p-6 text-center space-y-4">
-                    <div className="mx-auto w-fit p-3 rounded-full bg-green-200">{reason.icon}</div>
-                    <h3 className="text-xl font-bold text-green-800">{reason.title}</h3>
-                    <p className="text-green-600">{reason.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section id="testimonios" className="py-16 md:py-24 bg-gray-50">
-          <div className="container">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Lo que dicen nuestros clientes</h2>
-              <p className="text-lg text-muted-foreground">
-                Estas son algunas experiencias de quienes confían en nosotros.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: "Laura Martínez",
-                  text: "Desde que descubrí Saintmery, mi alimentación cambió por completo. Sus productos son de excelente calidad y el asesoramiento es inmejorable.",
-                },
-                {
-                  name: "Carlos Rodríguez",
-                  text: "Como celíaco, encontrar una dietética con tanta variedad de productos sin TACC y a buenos precios es un alivio. ¡Totalmente recomendable!",
-                },
-                {
-                  name: "María González",
-                  text: "El servicio es excelente y los productos son frescos y de calidad. Además, siempre tienen novedades y están al día con las últimas tendencias en alimentación saludable.",
-                },
-              ].map((testimonial, i) => (
-                <Card key={i} className="border-none shadow-lg">
-                  <CardContent className="p-6 space-y-4">
-                    <div className="flex text-amber-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-current" />
-                      ))}
-                    </div>
-                    <p className="italic">"{testimonial.text}"</p>
-                    <div className="font-medium">{testimonial.name}</div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contacto" className="py-16 md:py-24">
-          <div className="container">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Contactanos por WhatsApp</h2>
-                <p className="text-lg text-muted-foreground">
-                  Hacemos entregas a domicilio en Mar del Plata y Balcarce. ¡Consultanos por WhatsApp para hacer tu
-                  pedido!
-                </p>
-
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-green-600 mt-1" />
-                    <div>
-                      <h3 className="font-medium">Modalidad</h3>
-                      <p className="text-muted-foreground">Atención a puertas cerradas en Mar del Plata</p>
-                      <p className="text-muted-foreground">Entrega a domicilio en Mar del Plata y Balcarce</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <WhatsApp className="h-5 w-5 text-green-600 mt-1" />
-                    <div>
-                      <h3 className="font-medium">WhatsApp</h3>
-                      <p className="text-muted-foreground">+54 223 525-6172</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Mail className="h-5 w-5 text-green-600 mt-1" />
-                    <div>
-                      <h3 className="font-medium">Email</h3>
-                      <p className="text-muted-foreground">carla-santamaria@hotmail.com</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Clock className="h-5 w-5 text-green-600 mt-1" />
-                    <div>
-                      <h3 className="font-medium">Horarios</h3>
-                      <p className="text-muted-foreground">Lunes a Viernes: 9:00 - 19:00</p>
-                      <p className="text-muted-foreground">Sábados: 9:00 - 13:00</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-4 pt-4">
-                  <Link
-                    href="https://instagram.com"
-                    className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors"
-                  >
-                    <Instagram className="h-5 w-5" />
-                    <span className="sr-only">Instagram</span>
-                  </Link>
-                  <Link
-                    href="https://facebook.com"
-                    className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors"
-                  >
-                    <Facebook className="h-5 w-5" />
-                    <span className="sr-only">Facebook</span>
-                  </Link>
-                </div>
-              </div>
-
-              <div className="h-[400px] w-full rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src="https://i.ibb.co/HLQkPJQR/productosfrescos.png"
-                  alt="Mapa de ubicación"
-                  width={600}
-                  height={400}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ¿Listo para mejorar tu alimentación? Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-br from-green-50 via-green-100 to-green-200 relative overflow-hidden">
-          <div className="container">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-green-800">¿Listo para mejorar tu alimentación?</h2>
-              <p className="text-lg text-green-600">
-                Comenzá hoy mismo a cuidar tu salud con nuestros productos naturales y saludables.
-              </p>
-            </div>
-            <div className="flex justify-center">
-              <Button
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 text-base shadow-md"
-                onClick={() =>
-                  window.open(
-                    "https://wa.me/542235256172?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20Saintmery.",
-                    "_blank",
-                  )
-                }
-              >
-                Contactanos
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="border-t py-12 bg-gray-50">
-          <div className="container">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="col-span-2 md:col-span-1">
-                {/* Footer Logo */}
-                <div className="mb-4">
-                  <Image
-                    src="https://i.ibb.co/jvz0rVS0/hojitaverde.png"
-                    alt="Saintmery Logo"
-                    width={150}
-                    height={50}
-                    className="h-12 w-auto"
-                  />
-                </div>
-                <p className="text-muted-foreground">
-                  Tu dietética de confianza. Productos naturales y saludables con entrega a domicilio en Mar del Plata y
-                  Balcarce.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-medium text-lg mb-4">Enlaces</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <Link href="#inicio" className="text-muted-foreground hover:text-green-600">
-                      Inicio
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#nosotros" className="text-muted-foreground hover:text-green-600">
-                      Nosotros
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#productos" className="text-muted-foreground hover:text-green-600">
-                      Productos
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#nuestros-productos" className="text-muted-foreground hover:text-green-600">
-                      Nuestros Productos
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#testimonios" className="text-muted-foreground hover:text-green-600">
-                      Testimonios
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#contacto" className="text-muted-foreground hover:text-green-600">
-                      Contacto
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/shop" className="text-muted-foreground hover:text-green-600">
-                      Shop
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-medium text-lg mb-4">Productos</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <Link
-                      href="/shop?categoria=alimentos-organicos"
-                      className="text-muted-foreground hover:text-green-600"
-                    >
-                      Alimentos Orgánicos
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/shop?categoria=productos-sin-tacc"
-                      className="text-muted-foreground hover:text-green-600"
-                    >
-                      Productos Sin TACC
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/shop?categoria=suplementos-naturales"
-                      className="text-muted-foreground hover:text-green-600"
-                    >
-                      Suplementos Naturales
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/shop?categoria=cosmetica-natural"
-                      className="text-muted-foreground hover:text-green-600"
-                    >
-                      Cosmética Natural
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-medium text-lg mb-4">Contacto</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-amber-700" />
-                    <span className="text-muted-foreground">Mar del Plata, Buenos Aires</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <WhatsApp className="h-4 w-4 text-amber-700" />
-                    <span className="text-muted-foreground">+54 223 525-6172</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-amber-700" />
-                    <span className="text-muted-foreground">info@saintmery.com.ar</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="border-t mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
-              <p className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} Saintmery. Todos los derechos reservados.
-              </p>
-              <div className="flex gap-4 mt-4 md:mt-0">
-                <Link href="#" className="text-sm text-muted-foreground hover:text-green-600">
-                  Política de Privacidad
-                </Link>
-                <Link href="#" className="text-sm text-muted-foreground hover:text-green-600">
-                  Términos y Condiciones
-                </Link>
-              </div>
-            </div>
-          </div>
-        </footer>
-
-        {/* WhatsApp Button */}
-        <WhatsAppButton />
       </main>
+
+      {/* Footer */}
+      <footer className="border-t py-12 bg-gray-50">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Saintmery</h3>
+              <p className="text-gray-600">
+                Tu aliado en alimentación saludable desde 2017.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/" className="text-gray-600 hover:text-green-600">
+                    Inicio
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shop" className="text-gray-600 hover:text-green-600">
+                    Tienda
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/#nosotros" className="text-gray-600 hover:text-green-600">
+                    Nosotros
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/#contacto" className="text-gray-600 hover:text-green-600">
+                    Contacto
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Contacto</h3>
+              <ul className="space-y-2">
+                <li className="text-gray-600">
+                  <a
+                    href="https://wa.me/542235256172"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-green-600"
+                  >
+                    WhatsApp: +54 223 525-6172
+                  </a>
+                </li>
+                <li className="text-gray-600">
+                  <a href="mailto:info@saintmery.com" className="hover:text-green-600">
+                    info@saintmery.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Síguenos</h3>
+              <div className="flex space-x-4">
+                <a
+                  href="https://www.instagram.com/saintmery"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-green-600"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://www.facebook.com/saintmery"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-green-600"
+                >
+                  Facebook
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t text-center text-gray-600">
+            <p>&copy; {new Date().getFullYear()} Saintmery. Todos los derechos reservados.</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* WhatsApp Button */}
+      <WhatsAppButton />
     </div>
   )
 }

@@ -12,6 +12,9 @@ import { Badge } from "@/components/ui/badge"
 import { useSearchParams } from "next/navigation"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Navbar } from "@/components/navbar"
+import { Cart } from "@/components/cart"
+import { useCart } from "@/lib/cart-context"
 
 // Actualizar la lista de categorías disponibles
 const categorias = ["Todas", "Frutos Secos", "Mix", "Granola", "Semillas", "AvenaHarinasyFeculas"]
@@ -790,10 +793,10 @@ const productos = [
 ]
 
 export default function ShopPage() {
+  const { getTotalItems, addToCart } = useCart()
   const [filteredProducts, setFilteredProducts] = useState(productos)
   const [selectedCategory, setSelectedCategory] = useState("Todas")
   const [searchTerm, setSearchTerm] = useState("")
-  const [cartCount, setCartCount] = useState(0)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [cartAnimation, setCartAnimation] = useState(false)
@@ -841,13 +844,18 @@ export default function ShopPage() {
   }, [selectedCategory, searchTerm, searchParams])
 
   // Función para contactar por WhatsApp para comprar
-  const addToCart = (productName: string, weight: string, price: string) => {
-    setCartCount((prev) => prev + 1)
+  const handleAddToCart = (product: any) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.prices["X250G"],
+      category: product.category,
+      description: product.description,
+      image: product.image,
+      quantity: 1
+    })
     setCartAnimation(true)
     setTimeout(() => setCartAnimation(false), 600)
-
-    const message = `Hola, me gustaría comprar el producto: ${productName} (${weight}) por ${price}. ¿Está disponible?`
-    window.open(`https://wa.me/542235256172?text=${encodeURIComponent(message)}`, "_blank")
   }
 
   if (isLoading) {
@@ -867,104 +875,15 @@ export default function ShopPage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 animate-slide-down">
-        <div className="container flex h-20 items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center group">
-              <Image
-                src="https://i.ibb.co/jvz0rVS0/hojitaverde.png"
-                alt="Saintmery Logo"
-                width={250}
-                height={80}
-                className="h-20 w-auto transition-transform duration-300 group-hover:scale-105"
-              />
-            </Link>
-            <Link
-              href="/"
-              className="hidden md:flex items-center text-sm font-medium text-muted-foreground hover:text-green-600 transition-all duration-300 hover:translate-x-1"
-            >
-              <ArrowLeft className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:-translate-x-1" /> Volver
-              al inicio
-            </Link>
-          </div>
+      <Navbar />
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-              className="transition-transform duration-300 hover:scale-110"
-            >
-              <div className={`transition-transform duration-300 ${isMenuOpen ? "rotate-180" : ""}`}>
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </div>
-            </Button>
-          </div>
-
-          <div className="hidden md:flex items-center gap-4">
-            <div className={`relative transition-all duration-300 ${cartAnimation ? "animate-bounce" : ""}`}>
-              <ShoppingCart className="h-6 w-6 transition-colors duration-300 hover:text-amber-600" />
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-amber-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
-                  {cartCount}
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <div
-          className={`md:hidden border-t transition-all duration-500 ease-in-out ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"}`}
-        >
-          {isMenuOpen && (
-            <div className="md:hidden border-t">
-              <div className="container py-4">
-                <Link
-                  href="/"
-                  className="flex items-center text-sm font-medium text-muted-foreground hover:text-green-600 mb-4"
-                >
-                  <ArrowLeft className="h-4 w-4 mr-1" /> Volver al inicio
-                </Link>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">Carrito</span>
-                  <div className={`relative transition-all duration-300 ${cartAnimation ? "animate-bounce" : ""}`}>
-                    <ShoppingCart className="h-5 w-5" />
-                    {cartCount > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-amber-600 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center animate-pulse">
-                        {cartCount}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </header>
-
-      <main className="flex-1 py-8">
+      <main className="flex-1 py-12">
         <div className="container">
-          <div className="mb-8 animate-fade-in">
-            <h1 className="text-3xl font-bold mb-2 animate-slide-up">Tienda Saintmery</h1>
-            <p className="text-muted-foreground animate-slide-up animation-delay-100">
-              Productos sueltos y saludables para venta minorista y mayorista.
+          <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl text-green-800">Nuestra Tienda</h1>
+            <p className="text-lg text-green-600">
+              Descubrí nuestra selección de productos naturales y saludables.
             </p>
-          </div>
-
-          {/* Banner de entrega */}
-          <div className="bg-gradient-to-r from-amber-100 to-green-100 rounded-lg p-4 mb-8 flex items-center gap-4 animate-slide-up animation-delay-200 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
-            <div className="bg-amber-200 p-2 rounded-full animate-pulse">
-              <ShoppingBag className="h-6 w-6 text-amber-700" />
-            </div>
-            <div>
-              <h3 className="font-medium">Entrega a domicilio</h3>
-              <p className="text-sm text-muted-foreground">
-                Hacemos envíos a Mar del Plata y Balcarce. Consultanos por WhatsApp al +54 223 525-6172
-              </p>
-            </div>
           </div>
 
           {/* Filtros y búsqueda */}
@@ -1004,139 +923,35 @@ export default function ShopPage() {
             </DropdownMenu>
           </div>
 
-          {/* Tipo de compra */}
-          <div className="flex gap-4 mb-8 animate-slide-up animation-delay-400">
-            <Button
-              variant="outline"
-              className="border-green-200 bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-800 transition-all duration-300 hover:scale-105 hover:shadow-md"
-            >
-              Compra Minorista
-            </Button>
-            <Button
-              variant="outline"
-              className="border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 hover:text-amber-800 transition-all duration-300 hover:scale-105 hover:shadow-md"
-            >
-              Compra Mayorista
-            </Button>
-          </div>
-
-          {/* Categorías en chips */}
-          <div className="flex flex-wrap gap-2 mb-8 animate-slide-up animation-delay-500">
-            {categorias.map((categoria, index) => (
-              <Badge
-                key={categoria}
-                variant={selectedCategory === categoria ? "default" : "outline"}
-                className={`cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-md ${
-                  selectedCategory === categoria ? "bg-amber-600 hover:bg-amber-700 animate-pulse" : "hover:bg-amber-50"
-                }`}
-                onClick={() => setSelectedCategory(categoria)}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {categoria}
-              </Badge>
-            ))}
-          </div>
-
           {/* Productos */}
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {filteredProducts.map((product, index) => (
-                <Card
-                  key={product.id}
-                  className="overflow-hidden transition-all duration-500 hover:shadow-xl hover:scale-105 animate-fade-in-up group"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="aspect-square relative overflow-hidden">
+                <Card key={product.id} className="transition-all hover:shadow-lg bg-green-50">
+                  <CardContent className="p-6 text-center space-y-4">
                     <Image
-                      src={product.image || "/placeholder.svg"}
+                      src={product.image}
                       alt={product.name}
-                      fill
-                      className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
+                      width={200}
+                      height={200}
+                      className="mx-auto rounded-lg"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute top-2 right-2 transform translate-x-10 group-hover:translate-x-0 transition-transform duration-300">
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="rounded-full bg-white/80 hover:bg-white transition-all duration-300 hover:scale-110"
-                      >
-                        <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 transition-colors duration-300" />
-                        <span className="sr-only">Añadir a favoritos</span>
-                      </Button>
+                    <div className="space-y-2">
+                      <span className="inline-block px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">
+                        {product.category}
+                      </span>
+                      <h3 className="text-xl font-bold text-green-800">{product.name}</h3>
+                      <p className="text-green-600">{product.description}</p>
                     </div>
-                  </div>
-                  <CardContent className="p-4">
-                    <div className="mb-2">
-                      <span className="text-xs font-medium text-amber-600 animate-pulse">{product.category}</span>
+                    <div className="flex justify-center items-center gap-2">
+                      <span className="text-lg font-semibold text-green-600">{product.prices["X250G"]}</span>
                     </div>
-                    <h3 className="font-bold transition-colors duration-300 group-hover:text-amber-700">
-                      {product.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2 mt-1 mb-2">{product.description}</p>
-
-                    {/* Tabs para seleccionar el peso/precio */}
-                    <Tabs defaultValue="X250G" className="mt-3">
-                      <TabsList className="grid grid-cols-3 mb-2 transition-all duration-300">
-                        <TabsTrigger value="X250G" className="transition-all duration-300 hover:scale-105">
-                          250g
-                        </TabsTrigger>
-                        <TabsTrigger value="500G" className="transition-all duration-300 hover:scale-105">
-                          500g
-                        </TabsTrigger>
-                        <TabsTrigger value="Kilo" className="transition-all duration-300 hover:scale-105">
-                          Kilo
-                        </TabsTrigger>
-                      </TabsList>
-
-                      {/* Contenido para cada peso */}
-                      <TabsContent value="X250G" className="mt-0 animate-fade-in">
-                        <div className="flex justify-between items-center">
-                          <span className="font-bold text-lg transition-all duration-300 group-hover:text-amber-600">
-                            {product.prices["X250G"]}
-                          </span>
-                          <Button
-                            size="sm"
-                            className="bg-amber-700 hover:bg-amber-800 transition-all duration-300 hover:scale-110 hover:shadow-lg active:scale-95"
-                            onClick={() => addToCart(product.name, "250g", product.prices["X250G"])}
-                          >
-                            <ShoppingBag className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:rotate-12" />{" "}
-                            Comprar
-                          </Button>
-                        </div>
-                      </TabsContent>
-
-                      <TabsContent value="500G" className="mt-0 animate-fade-in">
-                        <div className="flex justify-between items-center">
-                          <span className="font-bold text-lg transition-all duration-300 group-hover:text-amber-600">
-                            {product.prices["500G"]}
-                          </span>
-                          <Button
-                            size="sm"
-                            className="bg-amber-700 hover:bg-amber-800 transition-all duration-300 hover:scale-110 hover:shadow-lg active:scale-95"
-                            onClick={() => addToCart(product.name, "500g", product.prices["500G"])}
-                          >
-                            <ShoppingBag className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:rotate-12" />{" "}
-                            Comprar
-                          </Button>
-                        </div>
-                      </TabsContent>
-
-                      <TabsContent value="Kilo" className="mt-0 animate-fade-in">
-                        <div className="flex justify-between items-center">
-                          <span className="font-bold text-lg transition-all duration-300 group-hover:text-amber-600">
-                            {product.prices["Kilo"]}
-                          </span>
-                          <Button
-                            size="sm"
-                            className="bg-amber-700 hover:bg-amber-800 transition-all duration-300 hover:scale-110 hover:shadow-lg active:scale-95"
-                            onClick={() => addToCart(product.name, "1 kilo", product.prices["Kilo"])}
-                          >
-                            <ShoppingBag className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:rotate-12" />{" "}
-                            Comprar
-                          </Button>
-                        </div>
-                      </TabsContent>
-                    </Tabs>
+                    <Button 
+                      className="w-full bg-green-600 hover:bg-green-700 text-white"
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      Agregar al carrito
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
@@ -1168,128 +983,115 @@ export default function ShopPage() {
         </div>
       </main>
 
+      {/* Cart Sidebar */}
+      <div className="fixed right-0 top-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50 cart-sidebar">
+        <div className="h-full flex flex-col">
+          <div className="p-4 border-b flex justify-between items-center">
+            <h2 className="text-lg font-semibold">Carrito de Compras</h2>
+            <Button variant="ghost" size="icon" onClick={() => document.querySelector('.cart-sidebar')?.classList.toggle('translate-x-full')}>
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+          <Cart />
+        </div>
+      </div>
+
+      {/* Cart Toggle Button */}
+      <Button
+        className="fixed bottom-4 right-4 bg-green-600 hover:bg-green-700 rounded-full p-4 shadow-lg z-40"
+        onClick={() => document.querySelector('.cart-sidebar')?.classList.toggle('translate-x-full')}
+      >
+        <ShoppingBag className="h-6 w-6" />
+        <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">
+          {getTotalItems()}
+        </span>
+      </Button>
+
       {/* Footer */}
-      <footer className="border-t py-8 bg-gray-50 animate-slide-up">
+      <footer className="border-t py-12 bg-gray-50">
         <div className="container">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <Image
-                src="https://i.ibb.co/jvz0rVS0/hojitaverde.png"
-                alt="Saintmery Logo"
-                width={150}
-                height={50}
-                className="h-12 w-auto transition-transform duration-300 hover:scale-110"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Saintmery</h3>
+              <p className="text-gray-600">
+                Tu aliado en alimentación saludable desde 2017.
+              </p>
             </div>
-            <div className="flex gap-8">
-              <Link
-                href="/"
-                className="text-sm text-muted-foreground hover:text-amber-600 transition-all duration-300 hover:translate-y-1"
-              >
-                Inicio
-              </Link>
-              <Link
-                href="/#contacto"
-                className="text-sm text-muted-foreground hover:text-amber-600 transition-all duration-300 hover:translate-y-1"
-              >
-                Contacto
-              </Link>
-              <Link
-                href="#"
-                className="text-sm text-muted-foreground hover:text-amber-600 transition-all duration-300 hover:translate-y-1"
-              >
-                Términos y Condiciones
-              </Link>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/" className="text-gray-600 hover:text-green-600">
+                    Inicio
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shop" className="text-gray-600 hover:text-green-600">
+                    Tienda
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/#nosotros" className="text-gray-600 hover:text-green-600">
+                    Nosotros
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/#contacto" className="text-gray-600 hover:text-green-600">
+                    Contacto
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Contacto</h3>
+              <ul className="space-y-2">
+                <li className="text-gray-600">
+                  <a
+                    href="https://wa.me/542235256172"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-green-600"
+                  >
+                    WhatsApp: +54 223 525-6172
+                  </a>
+                </li>
+                <li className="text-gray-600">
+                  <a href="mailto:info@saintmery.com" className="hover:text-green-600">
+                    info@saintmery.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Síguenos</h3>
+              <div className="flex space-x-4">
+                <a
+                  href="https://www.instagram.com/saintmery"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-green-600"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://www.facebook.com/saintmery"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-green-600"
+                >
+                  Facebook
+                </a>
+              </div>
             </div>
           </div>
-          <div className="border-t mt-6 pt-6 text-center text-sm text-muted-foreground animate-fade-in">
-            © {new Date().getFullYear()} Saintmery. Todos los derechos reservados.
+          <div className="mt-8 pt-8 border-t text-center text-gray-600">
+            <p>&copy; {new Date().getFullYear()} Saintmery. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
 
       {/* WhatsApp Button */}
       <WhatsAppButton />
-
-      <style jsx>{`
-        @keyframes slide-down {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-slide-down {
-          animation: slide-down 0.5s ease-out;
-        }
-
-        .animate-slide-up {
-          animation: slide-up 0.6s ease-out;
-        }
-
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
-        }
-
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out;
-        }
-
-        .animation-delay-100 {
-          animation-delay: 0.1s;
-        }
-
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-        }
-
-        .animation-delay-300 {
-          animation-delay: 0.3s;
-        }
-
-        .animation-delay-400 {
-          animation-delay: 0.4s;
-        }
-
-        .animation-delay-500 {
-          animation-delay: 0.5s;
-        }
-      `}</style>
     </div>
   )
 }
