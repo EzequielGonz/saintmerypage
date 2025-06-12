@@ -44,7 +44,7 @@ export function Cart() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => removeFromCart(item.id)}
+              onClick={() => removeFromCart(item.id, item.selectedSize)}
               className="flex-shrink-0"
             >
               <X className="h-4 w-4" />

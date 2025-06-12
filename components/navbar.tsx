@@ -87,8 +87,8 @@ export function Navbar() {
         scrolled ? "shadow-md" : "",
       )}
     >
-      <div className="container flex h-16 items-center">
-        <div className="mr-4 flex">
+      <div className="container flex h-16 items-center justify-between">
+        <div className="flex items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Image
               src="https://i.ibb.co/jvz0rVS0/hojitaverde.png"
@@ -99,8 +99,8 @@ export function Navbar() {
             />
           </Link>
         </div>
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <nav className="flex items-center space-x-6">
+        <div className="flex items-center space-x-4">
+          <nav className="hidden md:flex items-center space-x-6">
             <Link href="#inicio" className="text-sm font-medium transition-colors hover:text-green-600">
               Inicio
             </Link>
@@ -131,6 +131,7 @@ export function Navbar() {
                 </span>
               )}
             </Button>
+            <MobileMenu items={navItems} currentSection={currentSection} />
           </div>
         </div>
       </div>

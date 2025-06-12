@@ -2,20 +2,25 @@
 
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-interface Product {
-  id: string;
+export interface Product {
+  id: number;
   name: string;
-  price: string;
+  prices: { [key: string]: string };
   category: string;
   description: string;
   image: string;
-  quantity?: number;
+}
+
+export interface CartItem extends Product {
+  selectedSize: string;
+  price: string;
+  quantity: number;
 }
 
 interface CartContextType {
-  cart: Product[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (productId: string) => void;
+  cart: CartItem[];
+  addToCart: (product: Product, selectedSize: string, price: string) => void;
+  removeFromCart: (productId: number, selectedSize: string) => void;
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => string;
@@ -24,24 +29,24 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product, selectedSize: string, price: string) => {
     setCart(prevCart => {
-      const existingProduct = prevCart.find(item => item.name === product.name);
-      if (existingProduct) {
-        return prevCart.map(item =>
-          item.name === product.name
+      const existingProductIndex = prevCart.findIndex(item => item.id === product.id && item.selectedSize === selectedSize);
+      if (existingProductIndex > -1) {
+        return prevCart.map((item, index) =>
+          index === existingProductIndex
             ? { ...item, quantity: (item.quantity || 1) + 1 }
             : item
         );
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, quantity: 1, selectedSize, price }];
     });
   };
 
-  const removeFromCart = (productId: string) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== productId));
+  const removeFromCart = (productId: number, selectedSize: string) => {
+    setCart(prevCart => prevCart.filter(item => !(item.id === productId && item.selectedSize === selectedSize)));
   };
 
   const clearCart = () => {
@@ -54,8 +59,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getTotalPrice = () => {
     const total = cart.reduce((sum, item) => {
-      const price = parseFloat(item.price.replace('$', '').replace('.', '').replace(',', '.'));
-      return sum + (price * (item.quantity || 1));
+      const priceValue = parseFloat(item.price.replace('$', '').replace('.', '').replace(',', '.'));
+      return sum + (priceValue * (item.quantity || 1));
     }, 0);
     return `$${total.toLocaleString('es-AR', { minimumFractionDigits: 2 })}`;
   };

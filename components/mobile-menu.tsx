@@ -56,6 +56,24 @@ export function MobileMenu({ items, currentSection }: MobileMenuProps) {
     }
   }, [isOpen])
 
+  // Handle smooth scrolling for anchor links
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault()
+      const targetId = href.substring(1)
+      const targetElement = document.getElementById(targetId)
+
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: "smooth",
+        })
+        window.history.pushState({}, "", href)
+      }
+    }
+    setIsOpen(false)
+  }
+
   return (
     <div data-mobile-menu className="md:hidden">
       <Button
@@ -73,27 +91,32 @@ export function MobileMenu({ items, currentSection }: MobileMenuProps) {
 
       {isOpen && (
         <>
-          <div className="fixed inset-0 top-20 z-40 bg-black/20" onClick={() => setIsOpen(false)} />
-          <div className="fixed inset-0 top-20 z-50 bg-white border-t shadow-lg">
-            <nav className="container py-8 bg-white">
-              <ul className="flex flex-col space-y-6">
+          <div 
+            className="fixed inset-0 top-16 z-40 bg-black/20 backdrop-blur-sm transition-opacity duration-200" 
+            onClick={() => setIsOpen(false)} 
+          />
+          <div className="fixed inset-x-0 top-16 z-50 bg-white border-t shadow-lg animate-in slide-in-from-top duration-200">
+            <nav className="container py-6 bg-white">
+              <ul className="flex flex-col space-y-4">
                 {items.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       className={cn(
-                        "text-lg font-medium transition-colors hover:text-green-600",
+                        "block py-2 text-lg font-medium transition-colors hover:text-green-600",
                         currentSection === item.href.replace("#", "") ? "text-green-600" : "text-foreground",
                       )}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => handleAnchorClick(e, item.href)}
                     >
                       {item.label}
                     </Link>
                   </li>
                 ))}
-                <li>
+                <li className="pt-2">
                   <Link href="/shop" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-green-600 hover:bg-green-700">Tienda Online</Button>
+                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                      Tienda Online
+                    </Button>
                   </Link>
                 </li>
               </ul>
