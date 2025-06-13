@@ -15,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Navbar } from "@/components/navbar"
 import { Cart } from "@/components/cart"
 import { useCart, Product } from "@/lib/cart-context"
+import { Mail, Clock, Smartphone } from "lucide-react"
 
 // Actualizar la lista de categorías disponibles
 const categorias = ["Todas", "Frutos Secos", "Mix", "Granola", "Semillas", "AvenaHarinasyFeculas"]
@@ -864,6 +865,10 @@ export default function ShopPage() {
         </div>
       </main>
 
+      {/* Contact Section */}
+      
+      {/* SM Banner Inferior Section */}
+      
       {/* Cart Sidebar */}
       <div className="fixed right-0 top-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50 cart-sidebar">
         <div className="h-full flex flex-col">

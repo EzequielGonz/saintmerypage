@@ -18,6 +18,7 @@ import {
   ChevronRight,
   Star,
   Wheat,
+  Smartphone,
 } from "lucide-react"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Navbar } from "@/components/navbar"
@@ -30,35 +31,56 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section id="inicio" className="relative min-h-screen flex items-end overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <iframe
-              src="https://player.vimeo.com/video/1088559327?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&controls=0&background=1"
-              className="absolute top-1/2 left-1/2 w-[120%] h-[120%] transform -translate-x-1/2 -translate-y-1/2 object-cover"
-              style={{
-                border: "none",
-                minHeight: "120vh",
-                minWidth: "120vw",
-              }}
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              title="Saintmery Video Background"
-            />
-            {/* Overlay muy sutil sin blur */}
-            <div className="absolute inset-0 bg-black/30"></div>
+        <section className="relative h-[calc(100vh-4rem)] overflow-hidden">
+          {/* Video Background */}
+          <div className="absolute inset-0 w-full h-full">
+            {/* Video para móviles (vertical) */}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover md:hidden"
+            >
+              <source src="/Banner SM Vertical.mp4" type="video/mp4" />
+            </video>
+            {/* Video para tablets y desktop (horizontal) */}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover hidden md:block"
+            >
+              <source src="/Banner SM semi cuadrada.mp4" type="video/mp4" />
+            </video>
+            {/* Overlay oscuro */}
+            <div className="absolute inset-0 bg-black/50"></div>
           </div>
-          <div className="container relative z-10 py-12 md:py-16 lg:py-20 flex items-center justify-center">
-            <div className="max-w-3xl mx-auto text-center space-y-8">
-              <div className="space-y-6">
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
-                  <Link href="/shop">
-                    <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 text-base shadow-md">
+
+          {/* Hero Content */}
+          <div className="relative h-full flex items-center">
+            <div className="container mx-auto px-4">
+              <div className="max-w-2xl text-white space-y-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                  Descubrí el poder de la alimentación natural
+                </h1>
+                <p className="text-lg md:text-xl text-gray-200">
+                  Productos naturales y orgánicos seleccionados para cuidar tu salud y bienestar.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link href="/shop" className="w-full sm:w-auto">
+                    <Button 
+                      size="lg" 
+                      className="w-full bg-green-600 hover:bg-green-700 text-white text-base font-semibold py-6 px-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
                       Ver productos
                     </Button>
                   </Link>
                   <Button
+                    size="lg"
                     variant="outline"
-                    className="bg-white/80 backdrop-blur text-green-900 hover:bg-green-100 border-white/40 px-6 py-3 text-base shadow-md"
+                    className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white/20 text-base font-semibold py-6 px-8"
                     onClick={() =>
                       window.open(
                         "https://wa.me/542235256172?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20Saintmery.",
@@ -66,12 +88,9 @@ export default function LandingPage() {
                       )
                     }
                   >
-                    Conócenos
+                    Contactanos
                   </Button>
                 </div>
-                <p className="text-lg md:text-xl text-green-900 max-w-2xl mx-auto font-semibold drop-shadow">
-                  Vendemos productos sueltos y saludables con entrega a domicilio en Mar del Plata y Balcarce.
-                </p>
               </div>
             </div>
           </div>
@@ -385,6 +404,127 @@ export default function LandingPage() {
                   </Button>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contacto" className="py-16 md:py-24 bg-white">
+          <div className="container grid md:grid-cols-2 gap-12 items-center">
+            {/* Contact Info */}
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold text-green-800 mb-4">Contactanos por WhatsApp</h2>
+              <p className="text-lg text-gray-700 mb-6">
+                Hacemos entregas a domicilio en Mar del Plata y Balcarce. ¡Consultanos por WhatsApp para hacer tu pedido!
+              </p>
+
+              <div className="space-y-6 text-left">
+                {/* Modality */}
+                <div>
+                  <h3 className="text-2xl font-semibold text-green-700 mb-2">Modalidad</h3>
+                  <ul className="text-gray-600 space-y-1">
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-500">•</span> Atención a puertas cerradas en Mar del Plata
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-500">•</span> Entrega a domicilio en Mar del Plata y Balcarce
+                    </li>
+                  </ul>
+                </div>
+
+                {/* WhatsApp */}
+                <div>
+                  <h3 className="text-2xl font-semibold text-green-700 mb-2">WhatsApp</h3>
+                  <a href="https://wa.me/542235256172" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-green-600 hover:underline">
+                    <Smartphone className="h-5 w-5" />
+                    +54 223 525-6172
+                  </a>
+                </div>
+
+                {/* Email */}
+                <div>
+                  <h3 className="text-2xl font-semibold text-green-700 mb-2">Email</h3>
+                  <a href="mailto:carla-santamaria@hotmail.com" className="flex items-center gap-2 text-green-600 hover:underline">
+                    <Mail className="h-5 w-5" />
+                    carla-santamaria@hotmail.com
+                  </a>
+                </div>
+
+                {/* Horarios */}
+                <div>
+                  <h3 className="text-2xl font-semibold text-green-700 mb-2">Horarios</h3>
+                  <ul className="text-gray-600 space-y-1">
+                    <li className="flex items-center gap-2">
+                      <Clock className="h-5 w-5 text-green-500" />
+                      Lunes a Viernes: 9:00 - 19:00
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Clock className="h-5 w-5 text-green-500" />
+                      Sábados: 9:00 - 13:00
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Social media icons */}
+              <div className="flex space-x-4 mt-8 justify-start">
+                  <a
+                    href="https://wa.me/542235256172"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-green-600 transition-colors duration-300"
+                  >
+                    <WhatsApp className="h-8 w-8" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/saintmery"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-green-600 transition-colors duration-300"
+                  >
+                    <Instagram className="h-8 w-8" />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/saintmery"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-green-600 transition-colors duration-300"
+                  >
+                    <Facebook className="h-8 w-8" />
+                  </a>
+              </div>
+            </div>
+
+            {/* Contact Image */}
+            <div>
+              <Image
+                src="/SM banner inferior.jpg"
+                alt="Imagen de Contacto"
+                width={500}
+                height={500}
+                className="rounded-lg shadow-lg mx-auto"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* SM Banner Inferior Section */}
+        <section className="relative bg-cover bg-center py-20 text-white flex items-center justify-center min-h-[300px]" style={{ backgroundImage: "url('/SM banner inferior.jpg')" }}>
+          <div className="absolute inset-0 bg-black opacity-40"></div>
+          <div className="container mx-auto px-4 text-center z-10">
+            <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-white">
+              TODOS LOS LUNES LANZAMOS NUEVAS PROMOS
+            </h2>
+            <div className="flex justify-center items-center mt-6 space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8 text-green-300">
+                <path fillRule="evenodd" d="M7.828 4.757a.75.75 0 011.06 0L12 7.879l3.112-3.122a.75.75 0 111.06 1.06L13.06 8.94l3.112 3.122a.75.75 0 11-1.06 1.06L12 10.061l-3.112 3.122a.75.75 0 01-1.06-1.06L10.94 8.94 7.828 5.828a.75.75 0 010-1.071zM.052 8.44l3.123 3.112a.75.75 0 01-1.06 1.06L-1 9.5a.75.75 0 01.052-1.06L3.112 5.328a.75.75 0 011.06 1.06L1.052 8.44zM24.052 8.44L20.94 5.328a.75.75 0 011.06 1.06l3.112 3.112a.75.75 0 01-1.06 1.06L20.94 8.44zM12 21.243a.75.75 0 01-.53-.22L8.358 17.89a.75.75 0 111.06-1.06L12 19.979l2.582-2.582a.75.75 0 111.06 1.06L12.53 21.023a.75.75 0 01-.53.22z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8 text-green-300">
+                <path fillRule="evenodd" d="M7.828 4.757a.75.75 0 011.06 0L12 7.879l3.112-3.122a.75.75 0 111.06 1.06L13.06 8.94l3.112 3.122a.75.75 0 11-1.06 1.06L12 10.061l-3.112 3.122a.75.75 0 01-1.06-1.06L10.94 8.94 7.828 5.828a.75.75 0 010-1.071zM.052 8.44l3.123 3.112a.75.75 0 01-1.06 1.06L-1 9.5a.75.75 0 01.052-1.06L3.112 5.328a.75.75 0 011.06 1.06L1.052 8.44zM24.052 8.44L20.94 5.328a.75.75 0 011.06 1.06l3.112 3.112a.75.75 0 01-1.06 1.06L20.94 8.44zM12 21.243a.75.75 0 01-.53-.22L8.358 17.89a.75.75 0 111.06-1.06L12 19.979l2.582-2.582a.75.75 0 111.06 1.06L12.53 21.023a.75.75 0 01-.53.22z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8 text-green-300">
+                <path fillRule="evenodd" d="M7.828 4.757a.75.75 0 011.06 0L12 7.879l3.112-3.122a.75.75 0 111.06 1.06L13.06 8.94l3.112 3.122a.75.75 0 11-1.06 1.06L12 10.061l-3.112 3.122a.75.75 0 01-1.06-1.06L10.94 8.94 7.828 5.828a.75.75 0 010-1.071zM.052 8.44l3.123 3.112a.75.75 0 01-1.06 1.06L-1 9.5a.75.75 0 01.052-1.06L3.112 5.328a.75.75 0 011.06 1.06L1.052 8.44zM24.052 8.44L20.94 5.328a.75.75 0 011.06 1.06l3.112 3.112a.75.75 0 01-1.06 1.06L20.94 8.44zM12 21.243a.75.75 0 01-.53-.22L8.358 17.89a.75.75 0 111.06-1.06L12 19.979l2.582-2.582a.75.75 0 111.06 1.06L12.53 21.023a.75.75 0 01-.53.22z" />
+              </svg>
             </div>
           </div>
         </section>
