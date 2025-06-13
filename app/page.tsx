@@ -19,6 +19,9 @@ import {
   Star,
   Wheat,
   Smartphone,
+  Nut,
+  Package,
+  Sprout,
 } from "lucide-react"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Navbar } from "@/components/navbar"
@@ -232,40 +235,49 @@ export default function LandingPage() {
               {[
                 {
                   title: "Frutos Secos",
-                  description: "Nuestros frutos secos de categoria premium.",
-                  icon: <Apple className="h-10 w-10 text-green-600" />,
+                  description: "Almendras, nueces, castañas y más frutos secos de la mejor calidad.",
+                  icon: <Nut className="h-8 w-8 text-green-600" />,
+                  href: "/shop?categoria=frutos-secos"
                 },
                 {
                   title: "Mix",
-                  description: "Disfrutá de una combinación irresistible de frutos secos y frutas deshidratadas",
-                  icon: <Leaf className="h-10 w-10 text-green-600" />,
+                  description: "Combinaciones perfectas de frutos secos y semillas para cada ocasión.",
+                  icon: <Package className="h-8 w-8 text-green-600" />,
+                  href: "/shop?categoria=mix"
                 },
                 {
                   title: "Granola",
-                  description: "Estan hechas con una mezcla equilibrada de avena, frutos secos, semillas y un toque de miel natural. ",
-                  icon: <Heart className="h-10 w-10 text-green-600" />,
+                  description: "Granolas artesanales con ingredientes naturales y sin conservantes.",
+                  icon: <Wheat className="h-8 w-8 text-green-600" />,
+                  href: "/shop?categoria=granola"
                 },
                 {
                   title: "Semillas",
-                  description: "Incorporá lo mejor de la naturaleza a tu dieta con nuestra selección de semillas: chía, lino, girasol, calabaza y más. ",
-                  icon: <ShoppingBag className="h-10 w-10 text-green-600" />,
+                  description: "Semillas de chía, lino, sésamo y más para una alimentación saludable.",
+                  icon: <Sprout className="h-8 w-8 text-green-600" />,
+                  href: "/shop?categoria=semillas"
                 },
                 {
-                  title: "AvenaHarinayFeculas",
-                  description: "Encontrá todo lo que necesitás para cocinar rico y natural: avena tradicional, harinas integrales, premezclas sin TACC, fécula de maíz y mucho más.",
-                  icon: <Wheat className="h-10 w-10 text-green-600" />,
+                  title: "Avena, Harinas y Féculas",
+                  description: "Harinas integrales, avena y féculas para tus recetas saludables.",
+                  icon: <Wheat className="h-8 w-8 text-green-600" />,
+                  href: "/shop?categoria=harinas-y-feculas"
                 },
               ].map((category, i) => (
-                <Card key={i} className="transition-all hover:shadow-lg bg-green-100">
-                  <CardContent className="p-6 text-center space-y-4">
-                    <div className="mx-auto w-fit p-3 rounded-full bg-green-200">{category.icon}</div>
-                    <h3 className="text-xl font-bold text-green-800">{category.title}</h3>
-                    <p className="text-green-600">{category.description}</p>
-                    <Link href="/shop">
-                      <Button variant="link" className="text-green-600">
-                        Ver productos <ChevronRight className="h-4 w-4 ml-1" />
-                      </Button>
-                    </Link>
+                <Card key={i} className="overflow-hidden transition-all hover:shadow-lg">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 bg-green-100 rounded-lg">{category.icon}</div>
+                      <div>
+                        <h3 className="text-xl font-bold text-green-800">{category.title}</h3>
+                        <p className="text-green-600">{category.description}</p>
+                        <Link href={category.href}>
+                          <Button variant="link" className="text-green-600">
+                            Ver productos <ChevronRight className="h-4 w-4 ml-1" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
