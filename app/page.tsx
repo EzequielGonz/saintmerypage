@@ -521,22 +521,39 @@ export default function LandingPage() {
         </section>
 
         {/* SM Banner Inferior Section */}
-        <section className="relative bg-cover bg-center py-20 text-white flex items-center justify-center min-h-[300px]" style={{ backgroundImage: "url('/SM banner inferior.jpg')" }}>
-          <div className="absolute inset-0 bg-black opacity-40"></div>
+        <section className="relative bg-green-800 py-20 text-white flex items-center justify-center min-h-[300px]">
           <div className="container mx-auto px-4 text-center z-10">
-            <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-white">
+            <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-white mb-4">
               TODOS LOS LUNES LANZAMOS NUEVAS PROMOS
             </h2>
-            <div className="flex justify-center items-center mt-6 space-x-2">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8 text-green-300">
-                <path fillRule="evenodd" d="M7.828 4.757a.75.75 0 011.06 0L12 7.879l3.112-3.122a.75.75 0 111.06 1.06L13.06 8.94l3.112 3.122a.75.75 0 11-1.06 1.06L12 10.061l-3.112 3.122a.75.75 0 01-1.06-1.06L10.94 8.94 7.828 5.828a.75.75 0 010-1.071zM.052 8.44l3.123 3.112a.75.75 0 01-1.06 1.06L-1 9.5a.75.75 0 01.052-1.06L3.112 5.328a.75.75 0 011.06 1.06L1.052 8.44zM24.052 8.44L20.94 5.328a.75.75 0 011.06 1.06l3.112 3.112a.75.75 0 01-1.06 1.06L20.94 8.44zM12 21.243a.75.75 0 01-.53-.22L8.358 17.89a.75.75 0 111.06-1.06L12 19.979l2.582-2.582a.75.75 0 111.06 1.06L12.53 21.023a.75.75 0 01-.53.22z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8 text-green-300">
-                <path fillRule="evenodd" d="M7.828 4.757a.75.75 0 011.06 0L12 7.879l3.112-3.122a.75.75 0 111.06 1.06L13.06 8.94l3.112 3.122a.75.75 0 11-1.06 1.06L12 10.061l-3.112 3.122a.75.75 0 01-1.06-1.06L10.94 8.94 7.828 5.828a.75.75 0 010-1.071zM.052 8.44l3.123 3.112a.75.75 0 01-1.06 1.06L-1 9.5a.75.75 0 01.052-1.06L3.112 5.328a.75.75 0 011.06 1.06L1.052 8.44zM24.052 8.44L20.94 5.328a.75.75 0 011.06 1.06l3.112 3.112a.75.75 0 01-1.06 1.06L20.94 8.44zM12 21.243a.75.75 0 01-.53-.22L8.358 17.89a.75.75 0 111.06-1.06L12 19.979l2.582-2.582a.75.75 0 111.06 1.06L12.53 21.023a.75.75 0 01-.53.22z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8 text-green-300">
-                <path fillRule="evenodd" d="M7.828 4.757a.75.75 0 011.06 0L12 7.879l3.112-3.122a.75.75 0 111.06 1.06L13.06 8.94l3.112 3.122a.75.75 0 11-1.06 1.06L12 10.061l-3.112 3.122a.75.75 0 01-1.06-1.06L10.94 8.94 7.828 5.828a.75.75 0 010-1.071zM.052 8.44l3.123 3.112a.75.75 0 01-1.06 1.06L-1 9.5a.75.75 0 01.052-1.06L3.112 5.328a.75.75 0 011.06 1.06L1.052 8.44zM24.052 8.44L20.94 5.328a.75.75 0 011.06 1.06l3.112 3.112a.75.75 0 01-1.06 1.06L20.94 8.44zM12 21.243a.75.75 0 01-.53-.22L8.358 17.89a.75.75 0 111.06-1.06L12 19.979l2.582-2.582a.75.75 0 111.06 1.06L12.53 21.023a.75.75 0 01-.53.22z" />
-              </svg>
+            <p className="text-xl text-green-100 mb-6">
+              Prestá atención a nuestras redes donde anunciamos nuestras promos semana a semana!
+            </p>
+            <div className="flex justify-center items-center space-x-4">
+              <a
+                href="https://www.instagram.com/saintmery"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-green-200 transition-colors"
+              >
+                <Instagram className="h-8 w-8" />
+              </a>
+              <a
+                href="https://www.facebook.com/saintmery"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-green-200 transition-colors"
+              >
+                <Facebook className="h-8 w-8" />
+              </a>
+              <a
+                href="https://wa.me/542235256172"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-green-200 transition-colors"
+              >
+                <WhatsApp className="h-8 w-8" />
+              </a>
             </div>
           </div>
         </section>

@@ -905,28 +905,20 @@ export default function ShopPage() {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/" className="text-gray-600 hover:text-green-600">
-                    Inicio
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/shop" className="text-gray-600 hover:text-green-600">
-                    Tienda
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#nosotros" className="text-gray-600 hover:text-green-600">
-                    Nosotros
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#contacto" className="text-gray-600 hover:text-green-600">
-                    Contacto
-                  </Link>
-                </li>
-              </ul>
+              <div className="flex items-center gap-6">
+                <Link href="/" className="text-gray-600 hover:text-green-600">
+                  Inicio
+                </Link>
+                <Link href="/#nosotros" className="text-gray-600 hover:text-green-600">
+                  Nosotros
+                </Link>
+                <Link href="/#contacto" className="text-gray-600 hover:text-green-600">
+                  Contacto
+                </Link>
+                <Link href="/shop" className="text-gray-600 hover:text-green-600">
+                  Tienda
+                </Link>
+              </div>
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Contacto</h3>

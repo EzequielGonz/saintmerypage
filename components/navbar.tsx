@@ -10,13 +10,12 @@ import { ShoppingBag } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 
 const navItems = [
-  { href: "#inicio", label: "Inicio" },
-  { href: "#nosotros", label: "Nosotros" },
-  { href: "#productos", label: "Productos" },
-  { href: "#nuestros-productos", label: "Nuestros Productos" },
-  { href: "#testimonios", label: "Testimonios" },
-  { href: "#contacto", label: "Contacto" },
-  { href: "/shop", label: "Shop" },
+  { href: "/", label: "Inicio" },
+  { href: "/#nosotros", label: "Nosotros" },
+  { href: "/#productos", label: "Productos" },
+  { href: "/#testimonios", label: "Testimonios" },
+  { href: "/#contacto", label: "Contacto" },
+  { href: "/shop", label: "Tienda" },
 ]
 
 export function Navbar() {
@@ -101,20 +100,23 @@ export function Navbar() {
         </div>
         <div className="flex items-center space-x-4">
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="#inicio" className="text-sm font-medium transition-colors hover:text-green-600">
+            <Link href="/" className="text-sm font-medium transition-colors hover:text-green-600">
               Inicio
             </Link>
-            <Link href="#nosotros" className="text-sm font-medium transition-colors hover:text-green-600">
+            <Link href="/#nosotros" className="text-sm font-medium transition-colors hover:text-green-600">
               Nosotros
             </Link>
-            <Link href="#productos" className="text-sm font-medium transition-colors hover:text-green-600">
+            <Link href="/#productos" className="text-sm font-medium transition-colors hover:text-green-600">
               Productos
             </Link>
-            <Link href="#testimonios" className="text-sm font-medium transition-colors hover:text-green-600">
+            <Link href="/#testimonios" className="text-sm font-medium transition-colors hover:text-green-600">
               Testimonios
             </Link>
-            <Link href="#contacto" className="text-sm font-medium transition-colors hover:text-green-600">
+            <Link href="/#contacto" className="text-sm font-medium transition-colors hover:text-green-600">
               Contacto
+            </Link>
+            <Link href="/shop" className="text-sm font-medium transition-colors hover:text-green-600">
+              Tienda
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
