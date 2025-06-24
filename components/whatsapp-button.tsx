@@ -2,6 +2,7 @@
 
 import { PhoneIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 export function WhatsAppButton() {
   return (
@@ -14,7 +15,14 @@ export function WhatsAppButton() {
         )
       }
     >
-      <PhoneIcon className="h-6 w-6" />
+      <Image
+        src="/logo-whatsapp-png_optimized-1024x1024-removebg-preview.png"
+        alt="WhatsApp"
+        width={32}
+        height={32}
+        style={{ width: 32, height: 32 }}
+        priority
+      />
     </Button>
   )
 }

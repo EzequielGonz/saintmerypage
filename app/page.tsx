@@ -66,10 +66,10 @@ export default function LandingPage() {
             <div className="container mx-auto px-4">
               <div className="max-w-2xl text-white space-y-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  Descubrí el poder de la alimentación natural
+                  Descubrí el poder de la Alimentacion Saludable!
                 </h1>
                 <p className="text-lg md:text-xl text-gray-200">
-                  Productos naturales y orgánicos seleccionados para cuidar tu salud y bienestar.
+                  Productos naturales y saludables seleccionados para cuidar tu salud y bienestar.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link href="/shop" className="w-full sm:w-auto">
@@ -109,7 +109,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 {
                   title: "Nuez Mariposa Extra Light x 250 gr",
@@ -137,6 +137,20 @@ export default function LandingPage() {
                   description: "Entrenuts",
                   price: "$5.500",
                   originalPrice: null,
+                  image: "https://i.ibb.co/qFjnZghx/sm1mockup.jpg",
+                },
+                {
+                  title: "Mix de Frutos Secos Premium x 500 gr",
+                  description: "OFERTA SEMANAL! - 15% de descuento",
+                  price: "$3.990",
+                  originalPrice: "$4.690",
+                  image: "https://i.ibb.co/qFjnZghx/sm1mockup.jpg",
+                },
+                {
+                  title: "Granola Casera x 300 gr",
+                  description: "OFERTA SEMANAL! - 8% de descuento",
+                  price: "$2.290",
+                  originalPrice: "$2.490",
                   image: "https://i.ibb.co/qFjnZghx/sm1mockup.jpg",
                 },
               ].map((offer, i) => (
@@ -227,7 +241,7 @@ export default function LandingPage() {
             <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-green-800">Nuestras categorías de productos</h2>
               <p className="text-lg text-green-600">
-                Ofrecemos una amplia variedad de productos naturales y orgánicos para satisfacer todas tus necesidades.
+                Ofrecemos una amplia variedad de productos naturales y saludables para satisfacer todas tus necesidades.
               </p>
             </div>
 
@@ -373,12 +387,12 @@ export default function LandingPage() {
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-amber-700">Venta Mayorista</h3>
-                      <p className="text-amber-600 font-medium">Para negocios y emprendimientos</p>
+                      <p className="text-amber-600 font-medium">Para comercios, gastronómicos y emprendedores</p>
                     </div>
                   </div>
 
                   <p className="text-muted-foreground mb-6 text-lg">
-                    Ideal para negocios, restaurantes y emprendedores. Productos en grandes cantidades con precios
+                    Ideal para comercios, gastronómicos y emprendedores. Productos en grandes cantidades con precios
                     especiales.
                   </p>
 
@@ -436,9 +450,6 @@ export default function LandingPage() {
                   <h3 className="text-2xl font-semibold text-green-700 mb-2">Modalidad</h3>
                   <ul className="text-gray-600 space-y-1">
                     <li className="flex items-center gap-2">
-                      <span className="text-green-500">•</span> Atención a puertas cerradas en Mar del Plata
-                    </li>
-                    <li className="flex items-center gap-2">
                       <span className="text-green-500">•</span> Entrega a domicilio en Mar del Plata y Balcarce
                     </li>
                   </ul>
@@ -453,14 +464,6 @@ export default function LandingPage() {
                   </a>
                 </div>
 
-                {/* Email */}
-                <div>
-                  <h3 className="text-2xl font-semibold text-green-700 mb-2">Email</h3>
-                  <a href="mailto:carla-santamaria@hotmail.com" className="flex items-center gap-2 text-green-600 hover:underline">
-                    <Mail className="h-5 w-5" />
-                    carla-santamaria@hotmail.com
-                  </a>
-                </div>
 
                 {/* Horarios */}
                 <div>
@@ -524,7 +527,7 @@ export default function LandingPage() {
         <section className="relative bg-green-800 py-20 text-white flex items-center justify-center min-h-[300px]">
           <div className="container mx-auto px-4 text-center z-10">
             <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-white mb-4">
-              TODOS LOS LUNES LANZAMOS NUEVAS PROMOS
+              TODOS LOS LUNES LANZAMOS NUEVAS PROMOS Y BENEFICIOS
             </h2>
             <p className="text-xl text-green-100 mb-6">
               Prestá atención a nuestras redes donde anunciamos nuestras promos semana a semana!

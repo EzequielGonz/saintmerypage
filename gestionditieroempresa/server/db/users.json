@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "email": "admin@ditiero.com.ar",
+            "password": "$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+            "nombre": "Administrador",
+            "rol": "admin",
+            "fotoPerfil": "/profiles/default.jpg",
+            "permisos": ["gestion_usuarios", "gestion_proyectos", "gestion_clientes", "admin"]
+        },
+        {
+            "id": 2,
+            "email": "g.ezequiel@ditiero.com.ar",
+            "password": "$2a$10$0PCjDMhXVQ9rtx.F.QydmOt6nujr1yv7r.IR3da8NwQJIjTfy41N6",
+            "nombre": "Ezequiel",
+            "rol": "admin",
+            "fotoPerfil": "/profiles/ezequiel.jpg",
+            "permisos": ["admin", "gestion_usuarios", "gestion_proyectos", "gestion_clientes"]
+        }
+    ]
+} 

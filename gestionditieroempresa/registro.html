@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - DiTiero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .register-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="register-container w-full max-w-md p-8 rounded-2xl shadow-2xl">
+        <div class="text-center mb-8">
+            <img src="img/ret.png" alt="DiTiero Logo" class="h-16 mx-auto mb-4">
+            <h1 class="text-2xl font-bold text-gray-800">Crear cuenta en DiTiero</h1>
+            <p class="text-gray-600">Completa el formulario para registrarte</p>
+        </div>
+
+        <form id="registerForm" class="space-y-6">
+            <div>
+                <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:border-transparent transition duration-200"
+                    placeholder="Tu nombre">
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Correo electrónico</label>
+                <input type="email" id="email" name="email" required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:border-transparent transition duration-200"
+                    placeholder="tu@email.com">
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+                <input type="password" id="password" name="password" required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:border-transparent transition duration-200"
+                    placeholder="••••••••">
+            </div>
+
+            <div>
+                <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">Confirmar contraseña</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-600 focus:border-transparent transition duration-200"
+                    placeholder="••••••••">
+            </div>
+
+            <button type="submit"
+                class="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 transition duration-200">
+                Registrarse
+            </button>
+        </form>
+
+        <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600">
+                ¿Ya tienes una cuenta?
+                <a href="login.html" class="text-purple-600 hover:text-purple-500 font-medium">Inicia sesión</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validación básica
+            if (!nombre || !email || !password || !confirmPassword) {
+                alert('Por favor complete todos los campos');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+
+            try {
+                console.log('Enviando solicitud de registro...');
+                const response = await fetch('http://localhost:3000/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        nombre: nombre.trim(),
+                        email: email.trim(),
+                        password: password
+                    })
+                });
+
+                console.log('Respuesta recibida:', response.status);
+                const data = await response.json();
+                console.log('Datos recibidos:', data);
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    window.location.href = 'index.html';
+                } else {
+                    throw new Error(data.error || 'Error al registrar usuario');
+                }
+            } catch (error) {
+                console.error('Error completo:', error);
+                alert(error.message || 'Error al registrar usuario. Por favor, intente nuevamente.');
+            }
+        });
+    </script>
+</body>
+</html> 

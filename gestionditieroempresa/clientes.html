@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - DiTiero Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f6f8fd 0%, #f1f4f9 100%);
+            color: #1a202c;
+        }
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .sidebar-link {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .sidebar-link:hover {
+            transform: translateX(5px);
+        }
+        .sidebar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #8b5cf6;
+            transition: width 0.3s ease;
+        }
+        .sidebar-link:hover::after {
+            width: 100%;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #8b5cf6;
+            transition: all 0.3s ease;
+        }
+        .profile-image:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+        .client-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .client-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .client-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5cf6, #6366f1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .client-card:hover::before {
+            transform: scaleX(1);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .status-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .status-badge i {
+            margin-right: 0.5rem;
+        }
+        .notification-badge {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        .activity-item {
+            transition: all 0.3s ease;
+        }
+        .activity-item:hover {
+            transform: translateX(5px);
+            background: rgba(139, 92, 246, 0.1);
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #8b5cf6;
+            transition: width 0.3s ease;
+        }
+        .tab-button:hover::after {
+            width: 100%;
+        }
+        .tab-button.active {
+            color: #8b5cf6;
+        }
+        .tab-button.active::after {
+            width: 100%;
+        }
+        .filter-button {
+            transition: all 0.3s ease;
+        }
+        .filter-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .filter-button.active {
+            background-color: #8b5cf6;
+            color: white;
+        }
+        .client-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .client-image:hover {
+            transform: scale(1.05);
+        }
+        .client-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.7));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .client-card:hover .client-overlay {
+            opacity: 1;
+        }
+        .client-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        .client-action-button {
+            padding: 0.5rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a202c;
+            transition: all 0.3s ease;
+        }
+        .client-action-button:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        .client-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .client-stat {
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .client-stat:hover {
+            transform: translateY(-2px);
+            background: rgba(139, 92, 246, 0.2);
+        }
+        .client-stat-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #8b5cf6;
+        }
+        .client-stat-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Pantalla de Carga -->
+    <div id="loadingScreen" class="loading-screen">
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_p8bfn5to.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></lottie-player>
+    </div>
+
+    <div class="min-h-screen">
+        <!-- Sidebar Mejorado -->
+        <aside class="fixed inset-y-0 left-0 bg-white w-64 shadow-lg transform transition-transform duration-300 ease-in-out" id="sidebar">
+            <div class="flex items-center justify-center h-16 border-b">
+                <img src="img/ret.png" alt="DiTiero Digital" class="h-8 animate__animated animate__fadeIn">
+            </div>
+            <div class="flex items-center justify-between px-4 py-3 border-b">
+                <div class="flex items-center">
+                    <img id="userProfileImage" class="profile-image" src="/profiles/default.jpg" alt="Foto de perfil">
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-700" id="userName">Admin</p>
+                        <p class="text-xs text-gray-500">Administrador</p>
+                    </div>
+                </div>
+                <div class="relative">
+                    <span class="notification-badge absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+                    <button id="userMenuButton" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <nav class="mt-6">
+                <div class="px-4 space-y-2">
+                    <a href="index.html" class="sidebar-link flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-home w-5 h-5 mr-3"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="proyectos.html" class="sidebar-link flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-project-diagram w-5 h-5 mr-3"></i>
+                        <span>Proyectos</span>
+                    </a>
+                    <a href="clientes.html" class="sidebar-link flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg">
+                        <i class="fas fa-users w-5 h-5 mr-3"></i>
+                        <span>Clientes</span>
+                    </a>
+                    <a href="configuracion.html" class="sidebar-link flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-cog w-5 h-5 mr-3"></i>
+                        <span>Configuración</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="ml-64 p-8">
+            <div class="max-w-7xl mx-auto">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold gradient-text animate__animated animate__fadeIn">Clientes</h1>
+                        <p class="text-gray-600 mt-2">Gestiona tus clientes y sus proyectos</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <input type="text" placeholder="Buscar clientes..." class="w-64 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <i class="fas fa-search text-gray-400 absolute right-3 top-3"></i>
+                        </div>
+                        <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors duration-300 flex items-center">
+                            <i class="fas fa-plus mr-2"></i>
+                            Nuevo Cliente
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="mb-8">
+                    <div class="flex space-x-4">
+                        <button class="filter-button active px-4 py-2 rounded-lg bg-purple-100 text-purple-800">
+                            <i class="fas fa-list mr-2"></i>Todos
+                        </button>
+                        <button class="filter-button px-4 py-2 rounded-lg bg-blue-100 text-blue-800">
+                            <i class="fas fa-star mr-2"></i>VIP
+                        </button>
+                        <button class="filter-button px-4 py-2 rounded-lg bg-green-100 text-green-800">
+                            <i class="fas fa-check-circle mr-2"></i>Activos
+                        </button>
+                        <button class="filter-button px-4 py-2 rounded-lg bg-yellow-100 text-yellow-800">
+                            <i class="fas fa-clock mr-2"></i>Inactivos
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Grid de Clientes -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cliente 1 -->
+                    <div class="client-card glass-effect rounded-lg shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Cliente 1" class="client-image">
+                            <div class="client-overlay">
+                                <div class="client-actions">
+                                    <button class="client-action-button">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="client-action-button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="client-action-button">
+                                        <i class="fas fa-envelope"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Empresa XYZ</h3>
+                                    <p class="text-gray-600">Juan Pérez</p>
+                                </div>
+                                <span class="status-badge bg-blue-100 text-blue-800">
+                                    <i class="fas fa-star"></i>VIP
+                                </span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Empresa líder en tecnología con más de 10 años en el mercado.</p>
+                            <div class="client-stats">
+                                <div class="client-stat">
+                                    <div class="client-stat-value">5</div>
+                                    <div class="client-stat-label">Proyectos</div>
+                                </div>
+                                <div class="client-stat">
+                                    <div class="client-stat-value">$50k</div>
+                                    <div class="client-stat-label">Ingresos</div>
+                                </div>
+                                <div class="client-stat">
+                                    <div class="client-stat-value">98%</div>
+                                    <div class="client-stat-label">Satisfacción</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cliente 2 -->
+                    <div class="client-card glass-effect rounded-lg shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Cliente 2" class="client-image">
+                            <div class="client-overlay">
+                                <div class="client-actions">
+                                    <button class="client-action-button">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="client-action-button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="client-action-button">
+                                        <i class="fas fa-envelope"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Startup ABC</h3>
+                                    <p class="text-gray-600">María García</p>
+                                </div>
+                                <span class="status-badge bg-green-100 text-green-800">
+                                    <i class="fas fa-check-circle"></i>Activo
+                                </span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Startup innovadora en el sector de la salud digital.</p>
+                            <div class="client-stats">
+                                <div class="client-stat">
+                                    <div class="client-stat-value">3</div>
+                                    <div class="client-stat-label">Proyectos</div>
+                                </div>
+                                <div class="client-stat">
+                                    <div class="client-stat-value">$25k</div>
+                                    <div class="client-stat-label">Ingresos</div>
+                                </div>
+                                <div class="client-stat">
+                                    <div class="client-stat-value">95%</div>
+                                    <div class="client-stat-label">Satisfacción</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cliente 3 -->
+                    <div class="client-card glass-effect rounded-lg shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Cliente 3" class="client-image">
+                            <div class="client-overlay">
+                                <div class="client-actions">
+                                    <button class="client-action-button">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="client-action-button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="client-action-button">
+                                        <i class="fas fa-envelope"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Consultora DEF</h3>
+                                    <p class="text-gray-600">Carlos López</p>
+                                </div>
+                                <span class="status-badge bg-yellow-100 text-yellow-800">
+                                    <i class="fas fa-clock"></i>Inactivo
+                                </span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Consultora especializada en transformación digital.</p>
+                            <div class="client-stats">
+                                <div class="client-stat">
+                                    <div class="client-stat-value">2</div>
+                                    <div class="client-stat-label">Proyectos</div>
+                                </div>
+                                <div class="client-stat">
+                                    <div class="client-stat-value">$15k</div>
+                                    <div class="client-stat-label">Ingresos</div>
+                                </div>
+                                <div class="client-stat">
+                                    <div class="client-stat-value">85%</div>
+                                    <div class="client-stat-label">Satisfacción</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Pantalla de carga
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('fade-out');
+            }, 1500);
+        });
+
+        // Verificar autenticación
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+
+        // Cargar datos del usuario
+        async function loadUserData() {
+            try {
+                const response = await fetch('http://localhost:3000/api/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al cargar datos del usuario');
+                }
+
+                const user = await response.json();
+                
+                // Actualizar UI con datos del usuario
+                document.getElementById('userName').textContent = user.nombre;
+                document.getElementById('userProfileImage').src = user.fotoPerfil || '/profiles/default.jpg';
+            } catch (error) {
+                console.error('Error:', error);
+                if (error.message.includes('autentíquese')) {
+                    window.location.href = 'login.html';
+                }
+            }
+        }
+
+        // Cargar clientes
+        async function loadClients() {
+            try {
+                const response = await fetch('http://localhost:3000/api/clientes', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al cargar clientes');
+                }
+
+                const clientes = await response.json();
+                const clientesContainer = document.querySelector('.grid');
+                clientesContainer.innerHTML = '';
+
+                clientes.forEach(cliente => {
+                    const clienteCard = createClientCard(cliente);
+                    clientesContainer.appendChild(clienteCard);
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Crear tarjeta de cliente
+        function createClientCard(cliente) {
+            const card = document.createElement('div');
+            card.className = 'client-card glass-effect rounded-lg shadow-lg overflow-hidden animate__animated animate__fadeIn';
+            
+            // Determinar el estado y sus colores
+            let statusIcon, statusBg, statusText;
+            switch(cliente.estado) {
+                case 'vip':
+                    statusIcon = 'star';
+                    statusBg = 'blue';
+                    break;
+                case 'activo':
+                    statusIcon = 'check-circle';
+                    statusBg = 'green';
+                    break;
+                case 'inactivo':
+                    statusIcon = 'clock';
+                    statusBg = 'yellow';
+                    break;
+                default:
+                    statusIcon = 'clock';
+                    statusBg = 'gray';
+            }
+
+            card.innerHTML = `
+                <div class="relative">
+                    <img src="${cliente.imagen || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'}" alt="${cliente.nombre}" class="client-image">
+                    <div class="client-overlay">
+                        <div class="client-actions">
+                            <button class="client-action-button" onclick="editClient('${cliente.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="client-action-button" onclick="deleteClient('${cliente.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="client-action-button" onclick="contactClient('${cliente.id}')">
+                                <i class="fas fa-envelope"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">${cliente.nombre}</h3>
+                            <p class="text-gray-600">${cliente.contacto}</p>
+                        </div>
+                        <span class="status-badge bg-${statusBg}-100 text-${statusBg}-800">
+                            <i class="fas fa-${statusIcon}"></i>${cliente.estado.replace(/\b\w/g, l => l.toUpperCase())}
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mb-4">${cliente.descripcion}</p>
+                    <div class="client-stats">
+                        <div class="client-stat">
+                            <div class="client-stat-value">${cliente.proyectos?.length || 0}</div>
+                            <div class="client-stat-label">Proyectos</div>
+                        </div>
+                        <div class="client-stat">
+                            <div class="client-stat-value">$${cliente.ingresos || 0}k</div>
+                            <div class="client-stat-label">Ingresos</div>
+                        </div>
+                        <div class="client-stat">
+                            <div class="client-stat-value">${cliente.satisfaccion || 0}%</div>
+                            <div class="client-stat-label">Satisfacción</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Manejar filtros
+        const filterButtons = document.querySelectorAll('.filter-button');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                // Aquí iría la lógica de filtrado
+            });
+        });
+
+        // Funciones de acción
+        async function editClient(id) {
+            try {
+                const response = await fetch(`http://localhost:3000/api/clientes/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Error al obtener datos del cliente');
+                }
+
+                const cliente = await response.json();
+                
+                // Crear modal de edición
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                modal.innerHTML = `
+                    <div class="bg-white rounded-lg p-8 max-w-md w-full">
+                        <h2 class="text-2xl font-bold mb-4">Editar Cliente</h2>
+                        <form id="editClientForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Nombre</label>
+                                <input type="text" name="nombre" value="${cliente.nombre}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" name="email" value="${cliente.email}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Teléfono</label>
+                                <input type="tel" name="telefono" value="${cliente.telefono}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Dirección</label>
+                                <input type="text" name="direccion" value="${cliente.direccion}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tipo</label>
+                                <select name="tipo" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                                    <option value="Empresa" ${cliente.tipo === 'Empresa' ? 'selected' : ''}>Empresa</option>
+                                    <option value="Persona" ${cliente.tipo === 'Persona' ? 'selected' : ''}>Persona</option>
+                                </select>
+                            </div>
+                            <div class="flex justify-end space-x-4 mt-6">
+                                <button type="button" onclick="closeModal()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-md">
+                                    Guardar Cambios
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+
+                document.body.appendChild(modal);
+
+                // Manejar el envío del formulario
+                document.getElementById('editClientForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    const updates = Object.fromEntries(formData.entries());
+
+                    try {
+                        const response = await fetch(`http://localhost:3000/api/clientes/${id}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify(updates)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Error al actualizar cliente');
+                        }
+
+                        closeModal();
+                        loadClients(); // Recargar la lista de clientes
+                        showNotification('Cliente actualizado exitosamente', 'success');
+                    } catch (error) {
+                        showNotification(error.message, 'error');
+                    }
+                });
+            } catch (error) {
+                showNotification(error.message, 'error');
+            }
+        }
+
+        async function deleteClient(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este cliente?')) {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/clientes/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Error al eliminar cliente');
+                    }
+
+                    loadClients(); // Recargar la lista de clientes
+                    showNotification('Cliente eliminado exitosamente', 'success');
+                } catch (error) {
+                    showNotification(error.message, 'error');
+                }
+            }
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.fixed.inset-0');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            } text-white`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function contactClient(id) {
+            console.log('Contactar cliente:', id);
+            // Implementar lógica de contacto
+        }
+
+        // Manejar menú de usuario
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userMenu = document.getElementById('userMenu');
+
+        userMenuButton.addEventListener('click', () => {
+            userMenu.classList.toggle('hidden');
+        });
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', (event) => {
+            if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+
+        // Manejar cierre de sesión
+        document.getElementById('logoutButton').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        });
+
+        // Cargar datos iniciales
+        loadUserData();
+        loadClients();
+    </script>
+</body>
+</html> 
