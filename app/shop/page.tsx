@@ -944,7 +944,7 @@ export default function ShopPage() {
               <h3 className="text-lg font-semibold mb-4">Síguenos</h3>
               <div className="flex space-x-4">
                 <a
-                  href="https://www.instagram.com/saintmery"
+                  href="https://www.instagram.com/saintmerydistribuidora/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-green-600"

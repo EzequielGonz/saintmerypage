@@ -103,8 +103,8 @@ export default function LandingPage() {
         <section className="py-16 md:py-24 bg-green-50">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-green-800">Ofertas Semanales</h2>
-              <p className="text-lg text-green-600">
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-green-800">OFERTAS Semanales</h2>
+              <p className="text-xl text-green-600">
                 Aprovechá nuestras ofertas semanales en productos naturales y saludables.
               </p>
             </div>
@@ -254,7 +254,7 @@ export default function LandingPage() {
                   href: "/shop?categoria=frutos-secos"
                 },
                 {
-                  title: "Mix",
+                  title: "Mix de frutos secos",
                   description: "Combinaciones perfectas de frutos secos y semillas para cada ocasión.",
                   icon: <Package className="h-8 w-8 text-green-600" />,
                   href: "/shop?categoria=mix"
@@ -492,7 +492,7 @@ export default function LandingPage() {
                     <WhatsApp className="h-8 w-8" />
                   </a>
                   <a
-                    href="https://www.instagram.com/saintmery"
+                    href="https://www.instagram.com/saintmerydistribuidora/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-green-600 transition-colors duration-300"
@@ -534,7 +534,7 @@ export default function LandingPage() {
             </p>
             <div className="flex justify-center items-center space-x-4">
               <a
-                href="https://www.instagram.com/saintmery"
+                href="https://www.instagram.com/saintmerydistribuidora/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-green-200 transition-colors"
@@ -621,7 +621,7 @@ export default function LandingPage() {
               <h3 className="text-lg font-semibold mb-4">Síguenos</h3>
               <div className="flex space-x-4">
                 <a
-                  href="https://www.instagram.com/saintmery"
+                  href="https://www.instagram.com/saintmerydistribuidora/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-green-600"
