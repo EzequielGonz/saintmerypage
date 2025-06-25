@@ -18,18 +18,18 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://saintmery.com"),
+  metadataBase: new URL("https://saintmerypage.vercel.app"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Saintmery - Dietética Natural",
     description: "Tu dietética de confianza. Productos naturales y saludables con entrega a domicilio en Mar del Plata y Balcarce.",
-    url: "https://saintmery.com",
+    url: "https://saintmerypage.vercel.app",
     siteName: "Saintmery",
     images: [
       {
-        url: "/images/saintmery-logo.png",
+        url: "https://saintmerypage.vercel.app/images/saintmery-logo.png",
         width: 1200,
         height: 630,
         alt: "Saintmery - Dietética Natural",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Saintmery - Dietética Natural",
     description: "Tu dietética de confianza. Productos naturales y saludables con entrega a domicilio en Mar del Plata y Balcarce.",
-    images: ["/images/saintmery-logo.png"],
+    images: ["https://saintmerypage.vercel.app/images/saintmery-logo.png"],
   },
   icons: {
     icon: [
