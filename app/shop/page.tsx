@@ -150,7 +150,7 @@ const productos: Product[] = [
     },
     category: "Frutos Secos",
     description: "El maní repelado salado es un snack clásico en Argentina, ideal para picadas, colaciones o acompañar bebidas.",
-    image: "https://tse2.mm.bing.net/th/id/OIP.Xm9kn_MQ63GiN31Ih73SZQHaIM?rs=1&pid=ImgDetMain",
+    image: "https://tse3.mm.bing.net/th/id/OIP.9mkV2Nn-WxSFm_3yPHZPsAHaHa?rs=1&pid=ImgDetMain",
   },
   {
     id: 1378,
@@ -256,7 +256,7 @@ const productos: Product[] = [
     },
     category: "Mix",
     description: "mani,pasas,nueces y almendras.",
-    image: "https://tse4.mm.bing.net/th/id/OIP.sG37AnvaeLWTEvZLnXxWDAHaHa?rs=1&pid=ImgDetMain",
+    image: "https://i.ibb.co/xtdFbyzK/mixclasico.jpg",
   },
   {
     id: 1338,
@@ -267,7 +267,7 @@ const productos: Product[] = [
     },
     category: "Mix",
     description: "mani,pasas,castañas,nuez,almendras y banana.",
-    image: "https://tse2.mm.bing.net/th/id/OIP.FRuaQjq3CVO4C7wIMqhPlwHaEQ?rs=1&pid=ImgDetMain",
+    image: "https://i.ibb.co/5XWp7gdf/mixtropical.jpg",
   },
   {
     id: 1340,
@@ -278,7 +278,7 @@ const productos: Product[] = [
     },
     category: "Mix",
     description: "mani,pasas rubias y morochas,nuez,almendras,castañas",
-    image: "https://tse2.mm.bing.net/th/id/OIP.qaue7Lbka1o900bOwi7P8wHaFQ?rs=1&pid=ImgDetMain",
+    image: "https://i.ibb.co/zT8qPm6c/mixpremium.jpg",
   },
   {
     id: 1341,
@@ -333,7 +333,7 @@ const productos: Product[] = [
     },
     category: "Mix",
     description: "nueces,almendras, castañas y avellanas.",
-    image: "https://mercaditodigital.com.bo/wp-content/uploads/2023/06/mix-frutos-secos.jpg",
+    image: "https://i.ibb.co/ZRC1BYv0/mixgold.jpg",
   },
   {
     id: 1349,
@@ -344,7 +344,7 @@ const productos: Product[] = [
     },
     category: "Mix",
     description: "girasol, mani, maiz frito, semilla de zappallo",
-    image: "https://tse3.mm.bing.net/th/id/OIP.Yv01CXgLDzocQxP5QHN3WwHaHa?rs=1&pid=ImgDetMain",
+    image: "https://i.ibb.co/YBXpNWVc/mixsalado.jpg",
   },
   {
     id: 1450,
@@ -366,7 +366,7 @@ const productos: Product[] = [
     },
     category: "Granola",
     description: "mani, pasas,avena c extracto de miel,copos y hebras.",
-    image: "https://tse1.mm.bing.net/th/id/OIP.mV0GTeUEfgjq6x93pqdJMgHaLG?rs=1&pid=ImgDetMain",
+    image: "https://i.ibb.co/cXQN1fVQ/granolaconmiel.jpg",
   },
   {
     id: 1454,
@@ -399,7 +399,7 @@ const productos: Product[] = [
     },
     category: "Granola",
     description: "granola crocante, arandanos y almendras nonparei",
-    image: "https://i0.wp.com/myskn.org/wp-content/uploads/2021/02/Granola-5.jpg?fit=960%2C872&ssl=1",
+    image: "https://i.ibb.co/350ghj19/granolasaint.jpg",
   },
   {
     id: 1202,
@@ -520,7 +520,7 @@ const productos: Product[] = [
     },
     category: "Semillas",
     description: "Semillas de zapallo.",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSk1yvXWzpYdrpD0c1FB0-5A4xGUP7vLtBiQ&s",
+    image: "https://th.bing.com/th/id/R.1bca0b81bf72f136a0feefc48f22ff4c?rik=3Hn0Ozr%2b7jABJw&riu=http%3a%2f%2fhablemosdeculturas.com%2fwp-content%2fuploads%2f2018%2f09%2fsemillas-de-zapallo-8-1024x683.jpg&ehk=paj467cPTAYJQ7ab9%2f3UsadZTid993oedQZ7YMr7lCg%3d&risl=&pid=ImgRaw&r=0",
   },
   {
     id: 1400,
@@ -608,7 +608,7 @@ const productos: Product[] = [
     },
     category: "AvenaHarinasyFeculas",
     description: "Harina de almendras con piel.",
-    image: "https://acdn-us.mitiendanube.com/stores/002/712/058/products/harina-de-almendras-con-piel-547be1ead548323a5217072528323207-1024-1024.png",
+    image: "https://i.ibb.co/4gnp9117/harinadealmendraconpiel.jpg",
   },
   {
     id: 1415,
@@ -700,14 +700,23 @@ export default function ShopPage() {
   useEffect(() => {
     const categoria = searchParams.get("categoria")
 
-    if (categoria) {
-      // Convertir el parámetro de URL a un formato que coincida con nuestras categorías
-      const formattedCategory = categoria
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ")
+    // Mapeo de parámetros de URL a categorías internas
+    const categoriaMap: Record<string, string> = {
+      "frutos-secos": "Frutos Secos",
+      "mix": "Mix",
+      "granola": "Granola",
+      "semillas": "Semillas",
+      "harinas-y-feculas": "AvenaHarinasyFeculas",
+    }
 
-      setSelectedCategory(categorias.includes(formattedCategory) ? formattedCategory : "Todas")
+    if (categoria) {
+      const mappedCategory = categoriaMap[categoria] ||
+        categoria
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ")
+
+      setSelectedCategory(categorias.includes(mappedCategory) ? mappedCategory : "Todas")
     }
 
     let filtered = productos

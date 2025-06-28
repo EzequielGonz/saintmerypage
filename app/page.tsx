@@ -36,7 +36,7 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="relative h-[calc(100vh-4rem)] overflow-hidden">
           {/* Video Background */}
-          <div className="absolute inset-0 w-full h-full">
+          <div className="absolute inset-0 w-full h-full" style={{backgroundImage: 'url(/images/saintmery-logo.png)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
             {/* Video para móviles (vertical) */}
             <video
               autoPlay
@@ -450,7 +450,7 @@ export default function LandingPage() {
                   <h3 className="text-2xl font-semibold text-green-700 mb-2">Modalidad</h3>
                   <ul className="text-gray-600 space-y-1">
                     <li className="flex items-center gap-2">
-                      <span className="text-green-500">•</span> Entrega a domicilio en Mar del Plata y Balcarce
+                      <span className="text-green-500">•</span> Los pedidos se realizan por Whatsapp
                     </li>
                   </ul>
                 </div>
